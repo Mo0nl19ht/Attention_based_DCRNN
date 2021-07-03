@@ -1,0 +1,31 @@
+`데이터준비, 그래프구성, 트레이닝, 베이스라인비교
+
+Python start.py --file_name="파일이름"
+
+
+
+
+Make predict
+
+python make_predict.py --config_filename=data/model/virtual_1220032300.04292103/config_1.yaml
+
+Data Preparation
+python -m scripts.generate_training_data --output_dir=data/Seoul_all --traffic_df_filename=data/Seoul_all.h5
+
+
+Graph Construction
+python -m scripts.gen_adj_mx  --sensor_ids_filename=data/sensor_graph/graph_sensor_ids_Seoul_all.txt --normalized_k=0.1 --output_pkl_filename=data/sensor_graph/adj_mx_Seoul_all.pkl
+
+
+Model Training
+python dcrnn_train.py --config_filename=data/model/dcrnn_Seoul_all.yaml
+
+
+python -m scripts.eval_baseline_methods --traffic_reading_filename=data/Seoul_all.h5
+
+python make_predict.py --config_filename=data/model/~~예측된모델폴더/config_100.yaml
+
+
+
+
+
